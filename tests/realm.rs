@@ -17,9 +17,12 @@ use kube::Resource;
 #[test]
 fn verify_resource() {
     assert_eq!(KeycloakRealm::kind(&()), "KeycloakRealm");
-    assert_eq!(KeycloakRealm::group(&()), "keycloak.org");
+    assert_eq!(KeycloakRealm::group(&()), "legacy.k8s.keycloak.org");
     assert_eq!(KeycloakRealm::version(&()), "v1alpha1");
-    assert_eq!(KeycloakRealm::api_version(&()), "keycloak.org/v1alpha1");
+    assert_eq!(
+        KeycloakRealm::api_version(&()),
+        "legacy.k8s.keycloak.org/v1alpha1"
+    );
 }
 
 #[test]

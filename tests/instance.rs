@@ -17,9 +17,12 @@ use kube::Resource;
 #[test]
 fn verify_resource() {
     assert_eq!(Keycloak::kind(&()), "Keycloak");
-    assert_eq!(Keycloak::group(&()), "keycloak.org");
+    assert_eq!(Keycloak::group(&()), "legacy.k8s.keycloak.org");
     assert_eq!(Keycloak::version(&()), "v1alpha1");
-    assert_eq!(Keycloak::api_version(&()), "keycloak.org/v1alpha1");
+    assert_eq!(
+        Keycloak::api_version(&()),
+        "legacy.k8s.keycloak.org/v1alpha1"
+    );
 }
 
 #[test]
@@ -30,7 +33,7 @@ fn provides_kind_and_apiversion() {
     .unwrap();
 
     assert_eq!(json["kind"], "Keycloak");
-    assert_eq!(json["apiVersion"], "keycloak.org/v1alpha1");
+    assert_eq!(json["apiVersion"], "legacy.k8s.keycloak.org/v1alpha1");
 }
 
 #[test]

@@ -18,7 +18,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(CustomResource, JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[kube(
-    group = "keycloak.org",
+    group = "legacy.k8s.keycloak.org",
     version = "v1alpha1",
     kind = "ExternalKeycloak",
     namespaced,
@@ -43,7 +43,7 @@ pub struct ExternalKeycloakStatus {
 
 #[derive(CustomResource, JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[kube(
-    group = "keycloak.org",
+    group = "legacy.k8s.keycloak.org",
     version = "v1alpha1",
     kind = "Keycloak",
     namespaced,
