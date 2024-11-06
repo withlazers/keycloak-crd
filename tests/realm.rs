@@ -11,15 +11,15 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 
-use k8s_openapi::Resource;
 use keycloak_crd::KeycloakRealm;
+use kube::Resource;
 
 #[test]
 fn verify_resource() {
-    assert_eq!(KeycloakRealm::KIND, "KeycloakRealm");
-    assert_eq!(KeycloakRealm::GROUP, "keycloak.org");
-    assert_eq!(KeycloakRealm::VERSION, "v1alpha1");
-    assert_eq!(KeycloakRealm::API_VERSION, "keycloak.org/v1alpha1");
+    assert_eq!(KeycloakRealm::kind(&()), "KeycloakRealm");
+    assert_eq!(KeycloakRealm::group(&()), "keycloak.org");
+    assert_eq!(KeycloakRealm::version(&()), "v1alpha1");
+    assert_eq!(KeycloakRealm::api_version(&()), "keycloak.org/v1alpha1");
 }
 
 #[test]

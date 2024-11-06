@@ -12,11 +12,12 @@
  */
 
 use k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector;
-use kube_derive::CustomResource;
+use kube::CustomResource;
+use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 
-#[derive(CustomResource, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(CustomResource, JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[kube(
     group = "keycloak.org",
     version = "v1alpha1",
@@ -26,14 +27,14 @@ use std::collections::BTreeMap;
     derive = "PartialEq",
     status = "KeycloakUserStatus"
 )]
-#[kube(apiextensions = "v1beta1")]
+//#[kube(apiextensions = "v1beta1")]
 #[serde(default, rename_all = "camelCase")]
 pub struct KeycloakUserSpec {
     pub realm_selector: LabelSelector,
     pub user: User,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct User {
     #[serde(skip_serializing_if = "BTreeMap::is_empty")]
@@ -59,7 +60,7 @@ pub struct User {
     pub username: String,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct Credential {
     pub temporary: bool,
@@ -69,7 +70,7 @@ pub struct Credential {
     pub value: String,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct FederatedIdentity {
     #[serde(skip_serializing_if = "String::is_empty")]
@@ -80,7 +81,7 @@ pub struct FederatedIdentity {
     pub user_name: String,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct KeycloakUserStatus {
     pub phase: String,

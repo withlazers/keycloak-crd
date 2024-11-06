@@ -12,10 +12,11 @@
  */
 
 use k8s_openapi::api::core::v1::ResourceRequirements;
-use kube_derive::CustomResource;
+use kube::CustomResource;
+use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
-#[derive(CustomResource, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(CustomResource, JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[kube(
     group = "keycloak.org",
     version = "v1alpha1",
@@ -25,7 +26,7 @@ use serde::{Deserialize, Serialize};
     derive = "PartialEq",
     status = "KeycloakStatus"
 )]
-#[kube(apiextensions = "v1beta1")]
+//#[kube(apiextensions = "v1beta1")]
 #[serde(default, rename_all = "camelCase")]
 pub struct KeycloakSpec {
     #[serde(skip_serializing_if = "Vec::is_empty")]
@@ -43,7 +44,7 @@ pub struct KeycloakSpec {
     pub storage_class_name: String,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct ExternalAccess {
     pub enabled: bool,
@@ -51,7 +52,7 @@ pub struct ExternalAccess {
     pub tls_termination: Option<TlsTermination>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Debug, Clone, PartialEq)]
 #[serde(rename_all = "lowercase")]
 pub enum TlsTermination {
     Reencrypt,
@@ -60,43 +61,43 @@ pub enum TlsTermination {
     Unknown,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct ExternalDatabase {
     pub enabled: bool,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct KeycloakDeploymentSpec {
     pub resources: ResourceRequirements,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct Migration {
     pub backups: Backups,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct Backups {
     pub enabled: bool,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct PodDisruptionBudget {
     pub enabled: bool,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct PostgresDeploymentSpec {
     resources: ResourceRequirements,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct KeycloakStatus {
     pub phase: String,

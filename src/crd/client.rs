@@ -12,11 +12,12 @@
  */
 
 use k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector;
-use kube_derive::CustomResource;
+use kube::CustomResource;
+use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 
-#[derive(CustomResource, Serialize, Default, Deserialize, Debug, Clone, PartialEq)]
+#[derive(CustomResource, JsonSchema, Serialize, Default, Deserialize, Debug, Clone, PartialEq)]
 #[kube(
     group = "keycloak.org",
     version = "v1alpha1",
@@ -26,14 +27,14 @@ use std::collections::BTreeMap;
     derive = "PartialEq",
     status = "KeycloakClientStatus"
 )]
-#[kube(apiextensions = "v1beta1")]
+//#[kube(apiextensions = "v1beta1")]
 #[serde(default, rename_all = "camelCase")]
 pub struct KeycloakClientSpec {
     pub client: Client,
     pub realm_selector: LabelSelector,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct Client {
     #[serde(skip_serializing_if = "BTreeMap::is_empty")]
@@ -85,7 +86,7 @@ pub struct Client {
     pub web_origins: Vec<String>,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct ProtocolMapper {
     #[serde(skip_serializing_if = "BTreeMap::is_empty")]
@@ -103,7 +104,7 @@ pub struct ProtocolMapper {
     pub protocol_mapper: String,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct KeycloakClientStatus {
     pub phase: String,

@@ -13,11 +13,12 @@
 
 use crate::crd::{Client, User};
 use k8s_openapi::apimachinery::pkg::apis::meta::v1::LabelSelector;
-use kube_derive::CustomResource;
+use kube::CustomResource;
+use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 
-#[derive(CustomResource, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(CustomResource, JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[kube(
     group = "keycloak.org",
     version = "v1alpha1",
@@ -27,14 +28,14 @@ use std::collections::BTreeMap;
     derive = "PartialEq",
     status = "KeycloakRealmStatus"
 )]
-#[kube(apiextensions = "v1beta1")]
+//#[kube(apiextensions = "v1beta1")]
 #[serde(default, rename_all = "camelCase")]
 pub struct KeycloakRealmSpec {
     pub instance_selector: LabelSelector,
     pub realm: Realm,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct Realm {
     #[serde(skip_serializing_if = "Vec::is_empty")]
@@ -56,7 +57,7 @@ pub struct Realm {
     pub realm_overrides: Vec<Override>,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct IdentityProvider {
     add_read_token_role_on_create: bool,
@@ -80,7 +81,7 @@ pub struct IdentityProvider {
     trust_email: bool,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct Override {
     #[serde(skip_serializing_if = "String::is_empty")]
@@ -89,7 +90,7 @@ pub struct Override {
     pub identity_provider: String,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct KeycloakRealmStatus {
     pub phase: String,
