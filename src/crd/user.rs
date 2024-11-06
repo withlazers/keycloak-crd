@@ -37,48 +37,53 @@ pub struct KeycloakUserSpec {
 #[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct User {
-    #[serde(skip_serializing_if = "BTreeMap::is_empty")]
-    pub attributes: BTreeMap<String, String>,
-    #[serde(skip_serializing_if = "BTreeMap::is_empty")]
-    pub client_roles: BTreeMap<String, Vec<String>>,
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub credentials: Vec<Credential>,
-    pub email: String,
-    pub email_verified: bool,
-    pub enabled: bool,
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub federated_identities: Vec<FederatedIdentity>,
-    pub first_name: String,
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub groups: Vec<String>,
-    pub id: String,
-    pub last_name: String,
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub realm_roles: Vec<String>,
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub required_actions: Vec<String>,
-    pub username: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub attributes: Option<BTreeMap<String, String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub client_roles: Option<BTreeMap<String, Vec<String>>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub credentials: Option<Vec<Credential>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub email: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub email_verified: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub federated_identities: Option<Vec<FederatedIdentity>>,
+    pub first_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub groups: Option<Vec<String>>,
+    pub id: Option<String>,
+    pub last_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub realm_roles: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub required_actions: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub username: Option<String>,
 }
 
 #[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct Credential {
-    pub temporary: bool,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub r#type: String,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub value: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub temporary: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<String>,
 }
 
 #[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct FederatedIdentity {
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub identity_provider: String,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub user_id: String,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub user_name: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub identity_provider: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_name: Option<String>,
 }
 
 #[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]

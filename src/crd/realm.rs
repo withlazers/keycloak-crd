@@ -38,56 +38,63 @@ pub struct KeycloakRealmSpec {
 #[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct Realm {
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub clients: Vec<Client>,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub display_name: String,
-    pub enabled: bool,
-    pub events_enabled: bool,
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub events_listeners: Vec<String>,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub id: String,
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub identity_providers: Vec<IdentityProvider>,
-    pub realm: String,
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub users: Vec<User>,
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub realm_overrides: Vec<Override>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub clients: Option<Vec<Client>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub display_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub events_enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub events_listeners: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub identity_providers: Option<Vec<IdentityProvider>>,
+    pub realm: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub users: Option<Vec<User>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub realm_overrides: Option<Vec<Override>>,
 }
 
 #[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct IdentityProvider {
-    add_read_token_role_on_create: bool,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    alias: String,
-    #[serde(skip_serializing_if = "BTreeMap::is_empty")]
-    config: BTreeMap<String, String>,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    display_name: String,
-    enabled: bool,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    first_broker_login_flow_alias: String,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    internal_id: String,
-    link_only: bool,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    post_broker_login_flow_alias: String,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    provider_id: String,
-    store_token: bool,
-    trust_email: bool,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    add_read_token_role_on_create: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    alias: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    config: Option<BTreeMap<String, String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    display_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    first_broker_login_flow_alias: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    internal_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    link_only: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    post_broker_login_flow_alias: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    provider_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    store_token: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    trust_email: Option<bool>,
 }
 
 #[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct Override {
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub for_flow: String,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub identity_provider: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub for_flow: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub identity_provider: Option<String>,
 }
 
 #[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]

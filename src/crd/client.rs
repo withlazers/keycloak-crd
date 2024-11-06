@@ -37,71 +37,88 @@ pub struct KeycloakClientSpec {
 #[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct Client {
-    #[serde(skip_serializing_if = "BTreeMap::is_empty")]
-    pub access: BTreeMap<String, bool>,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub admin_url: String,
-    #[serde(skip_serializing_if = "BTreeMap::is_empty")]
-    pub attributes: BTreeMap<String, String>,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub base_url: String,
-    pub bearer_only: bool,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub client_authenticator_type: String,
-    pub client_id: String,
-    pub consent_required: bool,
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub default_roles: Vec<String>,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub description: String,
-    pub direct_access_grants_enabled: bool,
-    pub enabled: bool,
-    pub frontchannel_logout: bool,
-    pub full_scope_allowed: bool,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    pub implicit_flow_enabled: bool,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
-    pub node_registration_timeout: i32,
-    pub not_before: i32,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub protocol: String,
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub protocol_mappers: Vec<ProtocolMapper>,
-    pub public_client: bool,
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub redirect_uris: Vec<String>,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub root_url: String,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub secret: String,
-    pub service_accounts_enabled: bool,
-    pub standard_flow_enabled: bool,
-    pub surrogate_auth_required: bool,
-    pub use_template_config: bool,
-    pub use_template_mappers: bool,
-    pub use_template_scope: bool,
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub web_origins: Vec<String>,
+    pub access: Option<BTreeMap<String, bool>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub admin_url: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub attributes: Option<BTreeMap<String, String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub base_url: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub bearer_only: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub client_authenticator_type: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub client_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub consent_required: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub default_roles: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub direct_access_grants_enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frontchannel_logout: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub full_scope_allowed: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<Option<String>>,
+    pub implicit_flow_enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub node_registration_timeout: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub not_before: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub protocol: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub protocol_mappers: Option<Vec<ProtocolMapper>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub public_client: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub redirect_uris: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub root_url: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub secret: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub service_accounts_enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub standard_flow_enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub surrogate_auth_required: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub use_template_config: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub use_template_mappers: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub use_template_scope: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub web_origins: Option<Vec<String>>,
 }
 
 #[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct ProtocolMapper {
-    #[serde(skip_serializing_if = "BTreeMap::is_empty")]
-    pub config: BTreeMap<String, String>,
-    pub consent_required: bool,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub consent_text: String,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub id: String,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub protocol: String,
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub protocol_mapper: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub config: Option<BTreeMap<String, String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub consent_required: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub consent_text: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub protocol: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub protocol_mapper: Option<String>,
 }
 
 #[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
