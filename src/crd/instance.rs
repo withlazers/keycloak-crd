@@ -20,6 +20,31 @@ use serde::{Deserialize, Serialize};
 #[kube(
     group = "keycloak.org",
     version = "v1alpha1",
+    kind = "ExternalKeycloak",
+    namespaced,
+    derive = "Default",
+    derive = "PartialEq",
+    status = "ExternalKeycloakStatus"
+)]
+//#[kube(apiextensions = "v1beta1")]
+#[serde(default, rename_all = "camelCase")]
+pub struct ExternalKeycloakSpec {
+    pub url: String,
+    pub context_root: String,
+}
+#[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[serde(default, rename_all = "camelCase")]
+pub struct ExternalKeycloakStatus {
+    pub conditions: Vec<serde_json::Value>,
+    pub instances: i32,
+    pub observed_generation: i32,
+    pub selector: String,
+}
+
+#[derive(CustomResource, JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
+#[kube(
+    group = "keycloak.org",
+    version = "v1alpha1",
     kind = "Keycloak",
     namespaced,
     derive = "Default",
