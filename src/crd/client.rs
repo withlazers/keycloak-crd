@@ -127,4 +127,5 @@ pub struct KeycloakClientStatus {
     pub phase: String,
     pub message: String,
     pub ready: bool,
+    pub secondary_resources: Option<BTreeMap<String, Vec<String>>>,
 }

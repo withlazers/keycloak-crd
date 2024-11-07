@@ -100,7 +100,10 @@ pub struct Override {
 #[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct KeycloakRealmStatus {
-    pub phase: String,
+    #[serde(rename = "loginURL")]
+    pub login_url: String,
     pub message: String,
+    pub phase: String,
     pub ready: bool,
+    pub secondary_resources: Option<BTreeMap<String, Vec<String>>>,
 }
