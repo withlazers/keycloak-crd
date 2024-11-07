@@ -11,6 +11,8 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 
+use std::collections::BTreeMap;
+
 use k8s_openapi::api::core::v1::ResourceRequirements;
 use kube::CustomResource;
 use schemars::JsonSchema;
@@ -35,10 +37,16 @@ pub struct ExternalKeycloakSpec {
 #[derive(JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
 #[serde(default, rename_all = "camelCase")]
 pub struct ExternalKeycloakStatus {
-    pub conditions: Vec<serde_json::Value>,
-    pub instances: i32,
-    pub observed_generation: i32,
-    pub selector: String,
+    pub credentials_secret: String,
+    #[serde(rename = "externalURL")]
+    pub external_url: String,
+    #[serde(rename = "internalURL")]
+    pub internal_url: String,
+    pub message: String,
+    pub phase: String,
+    pub ready: bool,
+    pub secondary_resources: Option<BTreeMap<String, Vec<String>>>,
+    pub version: String,
 }
 
 #[derive(CustomResource, JsonSchema, Serialize, Deserialize, Default, Debug, Clone, PartialEq)]
